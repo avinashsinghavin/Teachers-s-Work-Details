@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet" type="text/css" href="cssfile.css">
     <link rel="icon" href="/docs/4.0/assets/img/favicons/favicon.ico">
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 </head>
 <body>
@@ -49,7 +50,7 @@
 	          <input type="checkbox" value="remember-me"> Remember me
 	        </label>
 	      </div>
-	      <button class="btn btn-lg btn-primary btn-block" type="submit" onclick="Teacher_submit()">Sign in</button>
+	      <button class="btn btn-lg btn-primary btn-block" type="submit" id="signin_btn" onclick="Teacher_submit()">Login</button>
 	      <p class="mt-5 mb-3 text-muted">&copy; 2019-20220</p>
 	  	</div>
 	    <!-- </form> -->
@@ -78,18 +79,27 @@
 	function Teacher_submit() {
 		var uid = document.getElementById('Teacher_uid').value;
 		var pas = document.getElementById('Teacher_pas').value;
+		var signin_btn=$("#signin_btn");
 		if(uid != "" || pas != "") {
 			$.ajax({
 				url: "./Teacherlogin.php",
 				type: "POST",
-				dataType: "json",
 				data: {userid : uid, password : pas},
 				success: function(result){
+					result=JSON.parse(result);
 					console.log(result);
-					alert("sadgfgfdg");
+					if(result.status=='ok'){
+						swal("Success","Logged In","success");
+					}
+					signin_btn.html("Login");
+					signin_btn.removeAttr('disabled');
 				},
 				beforeSend: function(){
-					console.log("sending...");
+					signin_btn.html("Logging in...");
+					signin_btn.attr('disabled', 'disabled');
+				},
+				error:function(err){
+					console.log(err);
 				}
 			});
 		}
