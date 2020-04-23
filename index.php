@@ -36,7 +36,8 @@
 	</div>
 	<!-- Teachers Login Form  -->
 	<div id = "Teacher_login" class="text-center" style="visibility: hidden; display : none; text-align: center;">
-		<form class="form-signin">
+		<div class="form-signin">
+			<!-- <form class="form-signin"> -->
 	      <img class="mb-4" src="giet-logo-opt.png" alt="" width="50%" height="50%">
 	      <h1 class="h3 mb-3 font-weight-normal">Teachers sign in</h1>
 	      <label for="inputEmail" class="sr-only">Email address</label>
@@ -50,7 +51,8 @@
 	      </div>
 	      <button class="btn btn-lg btn-primary btn-block" type="submit" onclick="Teacher_submit()">Sign in</button>
 	      <p class="mt-5 mb-3 text-muted">&copy; 2019-20220</p>
-	    </form>
+	  	</div>
+	    <!-- </form> -->
 	</div>
 	<!-- Admin Login Form -->
 	<div id = "Admin_login" style="visibility: hidden; display : none; text-align: center;">
@@ -78,13 +80,16 @@
 		var pas = document.getElementById('Teacher_pas').value;
 		if(uid != "" || pas != "") {
 			$.ajax({
-				url: "Teacherlogin.php",
+				url: "./Teacherlogin.php",
 				type: "POST",
 				dataType: "json",
 				data: {userid : uid, password : pas},
-				success: function(result, status){
+				success: function(result){
 					console.log(result);
 					alert("sadgfgfdg");
+				},
+				beforeSend: function(){
+					console.log("sending...");
 				}
 			});
 		}
@@ -105,7 +110,7 @@
 		document.getElementById('Admin_login').style.display = 'block';
 	}
 </script>
-<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.4.1.min.js" cossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
 </html>
