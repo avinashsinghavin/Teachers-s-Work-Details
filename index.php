@@ -34,23 +34,25 @@
 	    <a class="dropdown-item" onclick="Admin()">Admin</a>
 	  </div>
 	</div>
+	<!-- Teachers Login Form  -->
 	<div id = "Teacher_login" class="text-center" style="visibility: hidden; display : none; text-align: center;">
 		<form class="form-signin">
 	      <img class="mb-4" src="giet-logo-opt.png" alt="" width="50%" height="50%">
 	      <h1 class="h3 mb-3 font-weight-normal">Teachers sign in</h1>
 	      <label for="inputEmail" class="sr-only">Email address</label>
-	      <input type="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>
+	      <input type="text" id="Teacher_uid" class="form-control" placeholder="Employee Id" required autofocus>
 	      <label for="inputPassword" class="sr-only">Password</label>
-	      <input type="password" id="inputPassword" class="form-control" placeholder="Password" required>
+	      <input type="password" id="Teacher_pas" class="form-control" placeholder="Password" required>
 	      <div class="checkbox mb-3">
 	        <label>
 	          <input type="checkbox" value="remember-me"> Remember me
 	        </label>
 	      </div>
-	      <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+	      <button class="btn btn-lg btn-primary btn-block" type="submit" onclick="Teacher_submit()">Sign in</button>
 	      <p class="mt-5 mb-3 text-muted">&copy; 2019-20220</p>
 	    </form>
 	</div>
+	<!-- Admin Login Form -->
 	<div id = "Admin_login" style="visibility: hidden; display : none; text-align: center;">
 		<form class="form-signin">
 	      <img class="mb-4" src="giet-logo-opt.png" alt="" width="50%" height="50%">
@@ -71,6 +73,23 @@
 
 </body>
 <script type="text/javascript">
+	function Teacher_submit() {
+		var uid = document.getElementById('Teacher_uid').value;
+		var pas = document.getElementById('Teacher_pas').value;
+		if(uid != "" || pas != "") {
+			$.ajax({
+				url: "Teacherlogin.php",
+				type: "POST",
+				dataType: "json",
+				data: {userid : uid, password : pas},
+				success: function(result, status){
+					console.log(result);
+					alert("sadgfgfdg");
+				}
+			});
+		}
+		
+	}
 	function Teacher() {
 		document.getElementById("login").style.visibility = 'hidden'; 
 		document.getElementById("login").style.display = 'none';
